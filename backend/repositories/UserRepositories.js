@@ -21,6 +21,19 @@ class UserRepositories{
 
     }
 
+    async findById(id){
+        const [rows] = await this.db.query(
+            `
+                SELECT * 
+                FROM USERS
+                WHERE id = ? 
+            `,
+            [id]
+        )
+
+        return rows[0];
+    }
+
     async createUser(name , email , hashPassword){
 
         const [result] = await this.db.query(
