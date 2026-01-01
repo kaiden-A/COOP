@@ -25,9 +25,9 @@ export const delete_product = catchAsync(async(req , res) => {
     const id = req.params.id;
 
     const productService = new ProductServices(req.app.locals.db);
-    const dltProduct = await productService.deleteProductById(id);
+    await productService.deleteProductById(id);
 
-    res.status(201).json({success : true , message : 'Successfully Deleted Product'});
+    res.status(204).json({success : true , message : 'Successfully Deleted Product'});
 
 })
 
@@ -37,8 +37,8 @@ export const update_product = catchAsync(async(req , res) => {
     const {stock} = req.body;
 
     const productService = new ProductServices(req.app.locals.db);
-    const updProd = await productService.updateProductStock(id , stock);
+    await productService.updateProductStock(id , stock);
 
-    return res.status(201).json({success : true , msg : 'successfully updated the stock'})
+    return res.status(204).json({success : true , msg : 'successfully updated the stock'})
 
 })

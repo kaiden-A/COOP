@@ -4,7 +4,7 @@ class ProductRepositories{
         this.db = db;
     }
 
-    async getAllProduct(){
+    async findAll(){
 
         const [rows] = await this.db.query(
             `
@@ -34,7 +34,7 @@ class ProductRepositories{
 
     }
 
-    async findProductById(id){
+    async findById(id){
 
         const [rows] = this.db.query(
             `
@@ -44,6 +44,7 @@ class ProductRepositories{
                     price,
                     stock,
                     image_url AS imageUrl,
+                    image_public_id AS publicId
                 FROM PRODUCTS
                 WHERE id = ?
             `,

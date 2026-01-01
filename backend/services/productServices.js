@@ -23,7 +23,7 @@ class ProductServices{
             throw new AppError("Fail Creating The product" , 401);
         }
 
-        const product = await this.productRepo.findProductById(result.insertId);
+        const product = await this.productRepo.findById(result.insertId);
         
         if(!product){
             throw new AppError("Product Doesnt Exist" , 404);
@@ -33,9 +33,11 @@ class ProductServices{
 
     }
 
+
+
     async getAllProduct(){
 
-        const product = this.productRepo.getAllProduct();
+        const product = this.productRepo.findAll();
 
         if(product.length === 0){
             throw new AppError("No Products" , 401)
@@ -53,20 +55,24 @@ class ProductServices{
             throw new AppError('Fail Updating The Stock' , 401);
         }
 
-        return true;
 
     }
 
 
     async deleteProductById(id ){
+        
+        const product = await this.productRepo.findById(id);
+        const result = await cloudinary.uploader.destroy(product.publicId);
 
-        const dltProduct = await this.productRepo.deleteById(id);
-
-        if(dltProduct.affectedRows === 0){
-            throw new AppError('Fail Deleting The Product' , 401)
+        if(!result.result){
+            throw new AppError('Fail Deleting The product Image' , 401);
         }
 
-        return true;
+        const dltProd = await this.productRepo.deleteById(id);
+
+        if(dltProd.affectedRows === 0){
+            throw new AppError('Fail Deleting The Product' , 401);
+        }
 
     }
 

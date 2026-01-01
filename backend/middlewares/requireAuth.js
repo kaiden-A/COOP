@@ -16,7 +16,7 @@ export default async function requireAuth(req , res , next){
         }
 
         const user = await userServices.findUserById(decodedToken);
-        req.user = rows[0];
+        req.user = user;
 
         next();
 
