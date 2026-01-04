@@ -1,33 +1,39 @@
 
 
-function Products(){
+function Products({imgLink , name , desc , price , addToCart}){
 
     return(
 
         <>
             <div className="product-card">
-                <div className="product-badge">Bestseller</div>
                 <div className="product-img">
-                    <div style={
-                        {width:"100%" , 
-                            height: "100%", 
-                            backgroundColor:"#a78bfa" ,
-                            display:"flex" ,
-                            alignItems: "center" ,
-                            justifyContent: "center" ,
-                            color:"white" ,
-                            fontSize: "3rem"}}>
-                        <i className="fas fa-tshirt"></i>
-                </div>
+                    <div
+                    style={{
+                        width: "100%",
+                        height: "100%",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                    }}
+                    >
+                    <img
+                        src="https://via.placeholder.com/300x300/"
+                        alt="T-shirt"
+                        style={{
+                        width: "60%",
+                        height: "60%",
+                        objectFit: "contain",
+                        }}
+                    />
+                    </div>
                 </div>
                 <div className="product-info">
-                    <h3 className="product-title">School Spirit T-Shirt</h3>
+                    <h3 className="product-title">{name}</h3>
                     <p className="product-description">High-quality cotton t-shirt with school logo and mascot</p>
                     <div className="product-price">
-                        $19.99
-                        <span>$24.99</span>
+                        {`RM ${price.toFixed(2)}`}
                     </div>
-                    <button className="btn btn-primary add-to-cart">
+                    <button className="btn btn-primary add-to-cart" onClick={addToCart}>
                         <i className="fas fa-cart-plus"></i> Add to Cart
                     </button>
                 </div>

@@ -1,10 +1,17 @@
-
+import { useContext, useState } from "react";
+import Cart from "./Cart";
+import { SalesContext } from "../../../Context/SalesContext";
 
 function Header(){
 
+    const [openCart , setOpenCart] = useState(false);
+    const {sales} = useContext(SalesContext);
+
 
     return(
+
         <>
+            {openCart && <Cart onClose={() => setOpenCart(false)} />}
             <header>
                 <div className="container">
                     <div className="header-content">
@@ -23,9 +30,9 @@ function Header(){
                         </nav>
                         
                         <div className="header-right">
-                            <div className="cart-icon" id="open-cart">
+                            <div className="cart-icon" onClick={() => setOpenCart(!openCart)}>
                                 <i className="fas fa-shopping-cart"></i>
-                                <span className="cart-count">0</span>
+                                <span className="cart-count">{sales.length}</span>
                             </div>
                             <div className="user-icon">
                                 <i className="fas fa-user"></i>

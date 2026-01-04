@@ -1,36 +1,76 @@
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Products from "./components/Products";
+import Hero from "./components/Hero";
+import Notifications from "../global/Notifications";
 import './styles/Hero.css'
+import { useContext, useState } from "react";
+import { SalesContext } from "../../Context/SalesContext";
 function Main(){
+
+    const {sales , setSales} = useContext(SalesContext);
+    const [noti , setNoti] = useState(false);
+    const [cart , setCart] = useState("");
+
+    const addToCart = (product) => {
+        setSales(s => [...s , product ])
+        setCart(product.name);
+        setNoti(true);
+    }
+
+    const sampleData = [
+        {
+            name : "T-Shirt",
+            price : 10,
+        },
+        {
+            name : "Pen",
+            price : 3,
+        },
+        {
+            name : "Kertas Majong",
+            price : 10,
+        },
+        {
+            name : "AisKrim",
+            price : 7
+        }
+    ]
 
     return(
         <>
+            {
+                noti && 
+                <Notifications
+                    message={`${cart} is Being Added to The Cart`}
+                    onClose={() => setNoti(false)}
+                    popup={true}
+                />
+            }
             <Header/>
 
             <div className="main-content">
                 <div className="container">
                     
-                    <div id="home-hero" className="hero" style={{display : "block"}}>
-                        <h1>MITS COOP MarketPlace</h1>
-                        <p>Support your school community by purchasing quality products from our co-op. All proceeds go back to fund school programs and activities.</p>
-                        <div className="hero-buttons">
-                            <button className="btn btn-primary" id="shop-now-btn">
-                                <i className="fas fa-shopping-bag"></i> Shop Now
-                            </button>
-                            <button className="btn btn-outline" id="learn-more-btn">
-                                <i className="fas fa-info-circle"></i> Learn More
-                            </button>
-                        </div>
-                    </div>
+                    <Hero/>
                     
                     <h1 className="page-title" id="page-title">Featured MITS Products</h1>
                     <p className="page-subtitle" id="page-subtitle">All proceeds support school programs and activities</p>
                     
                     <div className="product-grid" id="product-grid">
-                        <Products/>
-                        <Products/>
-                        <Products/>
+                        {
+                            sampleData.map((data , i) => 
+                                
+                                <Products
+                                    key={i}
+                                    name={data.name}
+                                    price={data.price}
+                                    addToCart={() => addToCart(data)}
+                                />
+
+                            )
+                            
+                        }
                     </div>
                 </div>
             </div>
