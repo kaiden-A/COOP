@@ -38,7 +38,7 @@ class AuthServices{
         const hashPassword = await this.#hashedPassword(password);
         const user = await this.userRepo.createUser(name , email , hashPassword );
 
-        if(user.affectedRows === 0){
+        if(!user){
             throw new AppError("Fail Creating The User" , 401);
         }
 

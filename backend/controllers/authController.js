@@ -1,12 +1,14 @@
 import catchAsync from "../../../i-do/backend/utils/catchAsync.js";
 import { authConfig } from "../config/auth.js";
 import AuthServices from "../services/authServices.js"
+import pool from "../database/connectDb.js";
+
+const authServices = new AuthServices(pool , authConfig());
 
 export const post_login = catchAsync( async (req , res) => {
 
     const {email , password} = req.body;
 
-    const authServices = new AuthServices(req.app.locals.db , authConfig());
     const user = await authServices.login(email , password);
 
     res.cookie('jwt' , user.token , {   
@@ -25,7 +27,6 @@ export const post_signup = catchAsync( async (req , res) => {
 
     const {name , email , password} = req.body;
 
-    const authServices = new AuthServices(req.app.locals.db , authConfig());
     const user = await authServices.signup(name , email , password);
 
     res.cookie('jwt' , user.token , {   

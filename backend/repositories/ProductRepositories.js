@@ -30,7 +30,7 @@ class ProductRepositories{
             [name , desc , price , stock , imageUrl , imagePublic , true , new Date() , new Date() ]
         )
 
-        return result;
+        return result.affectedRows > 0;
 
     }
 
@@ -66,7 +66,7 @@ class ProductRepositories{
             [newStock , id]
         )
 
-        return result;
+        return result.affectedRows > 0;
 
     }
 
@@ -77,7 +77,7 @@ class ProductRepositories{
             [id]
         )
 
-        return result;
+        return result.affectedRows > 0;
 
     }
 

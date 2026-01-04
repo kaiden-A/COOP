@@ -42,7 +42,7 @@ class UserRepositories{
             [name , email , hashPassword , true , new Date()]
         )
 
-        return result;
+        return result.affectedRows > 0;
 
     }
 

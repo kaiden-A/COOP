@@ -1,10 +1,7 @@
-import dotenv from 'dotenv';
-dotenv.config();
-
+import './config/env.js'
 import express from 'express';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
-import connectDb from './database/connectDb.js';
 import authRoutes from './routes/authRoutes.js';
 import errorHandler from './middlewares/errorHandler.js';
 import cors from 'cors';
@@ -24,8 +21,6 @@ app.use(cors({
     credentials: true
 }))
 
-const db = await connectDb();
-app.locals.db = db;
 
 app.get('/' , (req , res) => {
     console.log("Hello World")

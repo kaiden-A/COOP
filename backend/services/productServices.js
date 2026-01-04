@@ -19,7 +19,7 @@ class ProductServices{
         
         const result = await this.productRepo.createProduct(name , desc , price , stock , uploadResponse.secure_url , uploadResponse.public_id );
 
-        if(result.affectedRows === 0){
+        if(!result){
             throw new AppError("Fail Creating The product" , 401);
         }
 
@@ -51,7 +51,7 @@ class ProductServices{
 
         const updatedStock = await this.productRepo.updateStock(id , stock);
 
-        if(updatedStock.affectedRows === 0){
+        if(!updatedStock){
             throw new AppError('Fail Updating The Stock' , 401);
         }
 
@@ -70,7 +70,7 @@ class ProductServices{
 
         const dltProd = await this.productRepo.deleteById(id);
 
-        if(dltProd.affectedRows === 0){
+        if(!dltProd){
             throw new AppError('Fail Deleting The Product' , 401);
         }
 

@@ -1,4 +1,3 @@
-console.log(process.env.JWT_SECRET);
 export const authConfig = () => ({
     jwtSecret: process.env.JWT_SECRET,
     jwtExpiresIn: "7d",
